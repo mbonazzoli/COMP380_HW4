@@ -40,7 +40,6 @@ class DStarAlgorithm:
         
     def initialize(self):
         """The Initialize algorithm from the pseudocode."""
-        pass
         for s in self.graph.getData():
             self.rhs[s] = np.inf
             self.g[s] = np.inf
