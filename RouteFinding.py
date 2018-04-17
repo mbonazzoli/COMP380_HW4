@@ -10,7 +10,7 @@ import time
 import GraphSearch
 import GridGraph
 import LoadGraphs
-from HW4 import DStarLite
+import DStarLite
 
 
 def routeFinder():

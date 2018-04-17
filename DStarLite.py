@@ -15,6 +15,8 @@ import random
 from FoxQueue import Queue, PriorityQueue
 import time
 import numpy as np
+import RouteFinding
+
 
 class DStarAlgorithm:
 
@@ -50,10 +52,9 @@ class DStarAlgorithm:
         
     def computeShortestPath(self):
         """The ComputeShortestPath algorithm from the pseudocode."""
-        pass
-        while (self.U is not None) and ((self.U.topkey() < self.calculateKey(self.goalVert)) or
+        while (self.U is not None) and ((self.U.firstElement()[0] < self.calculateKey(self.goalVert)) or
                                         (self.rhs[self.goalVert] != self.g[self.goalVert])):
-            u = self.U.pop()
+            u = self.U.delete()
             if self.g[u] > self.rhs[u]:
                 self.g[u] = self.rhs[u]
             else:
@@ -65,7 +66,12 @@ class DStarAlgorithm:
                 
     def updateVertex(self, vert):
         """The UpdateVertex algorithm from the pseudocode."""
-        pass
+        if vert != self.startVert:
+            self.rhs[vert] = self.minNeighCost(vert)
+        if vert in self.U:
+            self.U.removeValue(vert)
+        if self.g[vert] != self.rhs[vert]:
+            self.U.insert(vert, self.calculateKey(vert))
 
             
     def minNeighCost(self, vert):
@@ -87,8 +93,7 @@ class DStarAlgorithm:
     def calculateKey(self, vert):
         """The CalculateKey algorithm from the pseudocode."""
         minG = min(self.g[vert], self.rhs[vert])
-        # TODO: currently no variable for h (figure out how to compute hueristic cost)
-        heurCost = self.h(vert, self.goalVert)
+        heurCost = self.graph.heuristicDist(vert, self.goalVert)
         return [minG + heurCost, minG]
 
 
