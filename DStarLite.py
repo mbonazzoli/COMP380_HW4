@@ -15,8 +15,7 @@ import random
 from FoxQueue import Queue, PriorityQueue
 import time
 import numpy as np
-import RouteFinding
-
+# import RouteFinding
 
 class DStarAlgorithm:
 
@@ -36,16 +35,22 @@ class DStarAlgorithm:
         # estimated cost from start vertex to other vertex
         self.g = {}
 
+        # print(self.startVert, self.goalVert)
+
         self.initialize()
         
         
         
     def initialize(self):
         """The Initialize algorithm from the pseudocode."""
-        for s in self.graph.getData():
-            self.rhs[s] = np.inf
-            self.g[s] = np.inf
+        for s in range(0, self.graph._numVerts):
+            # s = self.graph.getData(i)
+            self.rhs.update({s: np.iinfo(np.int32(10)).max})
+            self.g.update({s: np.iinfo(np.int32(10)).max})
+
         self.rhs[self.startVert] = 0
+        # print(self.g, self.rhs)
+        # print(self.g.values(),self.rhs.values())
 
         self.U.insert(self.calculateKey(self.startVert), self.startVert)
 
@@ -54,13 +59,15 @@ class DStarAlgorithm:
         """The ComputeShortestPath algorithm from the pseudocode."""
         while (self.U is not None) and ((self.U.firstElement()[0] < self.calculateKey(self.goalVert)) or
                                         (self.rhs[self.goalVert] != self.g[self.goalVert])):
-            u = self.U.delete()
-            if self.g[u] > self.rhs[u]:
+            u = self.U.firstElement()[1]
+            self.U.delete()
+            print(u)
+            if self.g.get(u) > self.rhs.get(u):
                 self.g[u] = self.rhs[u]
             else:
                 self.g[u] = np.inf
                 self.updateVertex(u)
-            for s in self.graph.getNeighbors():
+            for s in self.graph.getNeighbors(u):
                 self.updateVertex(s)
 
                 
@@ -68,7 +75,7 @@ class DStarAlgorithm:
         """The UpdateVertex algorithm from the pseudocode."""
         if vert != self.startVert:
             self.rhs[vert] = self.minNeighCost(vert)
-        if vert in self.U:
+        if vert in self.U.contains(vert):
             self.U.removeValue(vert)
         if self.g[vert] != self.rhs[vert]:
             self.U.insert(vert, self.calculateKey(vert))
@@ -92,7 +99,7 @@ class DStarAlgorithm:
         
     def calculateKey(self, vert):
         """The CalculateKey algorithm from the pseudocode."""
-        minG = min(self.g[vert], self.rhs[vert])
+        minG = min(self.g.get(vert), self.rhs.get(vert))
         heurCost = self.graph.heuristicDist(vert, self.goalVert)
         return [minG + heurCost, minG]
 
@@ -150,7 +157,6 @@ class DStarAlgorithm:
                 minNeigh = neigh
         return minNeigh
                 
-
 
 # ---------------------------------------------------------------
 def DStarRoute(graph, startVert, goalVert):
@@ -224,7 +230,7 @@ def DStarLocal(graph, startVert, goalVert, percWrong = 20):
     print("CORRUPTED GRAPH:")
     dStarRunner = DStarAlgorithm(incorrectGraph, startVert, goalVert)
     print("First pass...")
-    RouteFinding.testAndRun(dStarRunner)
+    # RouteFinding.testAndRun(dStarRunner)
     t1 = time.time()
     route1 = dStarRunner.computeShortestPath()
     t2 = time.time()

@@ -136,7 +136,6 @@ def getUserChoice(prompt, validOpts):
             return val
         print("Invalid input, try again.")
         
-    
 
 
 routeFinder()

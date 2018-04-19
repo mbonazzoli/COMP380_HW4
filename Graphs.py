@@ -31,6 +31,13 @@ class Graph:
         self._lastNode = len(self._nodeData)
     # end __init__
 
+    @property
+    def numVerts(self):
+        return self._numVerts
+    # @property
+    # def nodeData(self):
+    #     return self._nodeData
+
     # -------------------------
     # First, some operations for adding data and edges to the graph
 
