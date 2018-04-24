@@ -57,28 +57,34 @@ class DStarAlgorithm:
         
     def computeShortestPath(self):
         """The ComputeShortestPath algorithm from the pseudocode."""
-        while (self.U is not None) and ((self.U.firstElement()[0] < self.calculateKey(self.goalVert)) or
+        # print(self.rhs[self.goalVert])
+        # print(self.g[self.goalVert])
+        # print((self.rhs[self.goalVert] != self.g[self.goalVert]))
+  
+        while (self.U.firstElement() is not None) and ((self.U.firstElement()[0][0] < self.calculateKey(self.goalVert)[0]) or
                                         (self.rhs[self.goalVert] != self.g[self.goalVert])):
             u = self.U.firstElement()[1]
             self.U.delete()
-            print(u)
             if self.g.get(u) > self.rhs.get(u):
                 self.g[u] = self.rhs[u]
             else:
                 self.g[u] = np.inf
                 self.updateVertex(u)
-            for s in self.graph.getNeighbors(u):
+            for neigh in self.graph.getNeighbors(u):
+                s = neigh[0]
                 self.updateVertex(s)
-
+                        
+            # if (self.U.firstElement() is not None)
+            #     break
                 
     def updateVertex(self, vert):
         """The UpdateVertex algorithm from the pseudocode."""
         if vert != self.startVert:
             self.rhs[vert] = self.minNeighCost(vert)
-        if vert in self.U.contains(vert):
+        if self.U.contains(vert):
             self.U.removeValue(vert)
         if self.g[vert] != self.rhs[vert]:
-            self.U.insert(vert, self.calculateKey(vert))
+            self.U.insert(self.calculateKey(vert), vert)
 
             
     def minNeighCost(self, vert):

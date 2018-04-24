@@ -184,6 +184,7 @@ class ListGraph(Graph):
     def getNeighbors(self, node):
         """Takes in a node index, and returns a list of the indices of
         the nodes neighbors."""
+        # print(node)
         if node < self._numVerts:
             lst = self._adjList[node]
             return lst[:]
