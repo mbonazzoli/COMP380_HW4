@@ -45,8 +45,8 @@ class DStarAlgorithm:
         """The Initialize algorithm from the pseudocode."""
         for s in range(0, self.graph._numVerts):
             # s = self.graph.getData(i)
-            self.rhs.update({s: np.iinfo(np.int32(10)).max})
-            self.g.update({s: np.iinfo(np.int32(10)).max})
+            self.rhs.update({s: self.maxVal})
+            self.g.update({s: self.maxVal})
 
         self.rhs[self.startVert] = 0
         # print(self.g, self.rhs)
@@ -64,14 +64,14 @@ class DStarAlgorithm:
         while (self.U.firstElement() is not None) and ((self.U.firstElement()[0][0] < self.calculateKey(self.goalVert)[0]) or
                                         (self.rhs[self.goalVert] != self.g[self.goalVert])):
             u = self.U.firstElement()[1]
+            print(u)
             self.U.delete()
             if self.g.get(u) > self.rhs.get(u):
                 self.g[u] = self.rhs[u]
             else:
                 self.g[u] = np.inf
                 self.updateVertex(u)
-            for neigh in self.graph.getNeighbors(u):
-                s = neigh[0]
+            for [s, cost] in self.graph.getNeighbors(u):
                 self.updateVertex(s)
                         
             # if (self.U.firstElement() is not None)
