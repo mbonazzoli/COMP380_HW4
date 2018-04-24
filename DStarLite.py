@@ -64,7 +64,7 @@ class DStarAlgorithm:
         while (self.U.firstElement() is not None) and ((self.U.firstElement()[0][0] < self.calculateKey(self.goalVert)[0]) or
                                         (self.rhs[self.goalVert] != self.g[self.goalVert])):
             u = self.U.firstElement()[1]
-            print(u)
+            # print(u)
             self.U.delete()
             if self.g.get(u) > self.rhs.get(u):
                 self.g[u] = self.rhs[u]
@@ -73,6 +73,8 @@ class DStarAlgorithm:
                 self.updateVertex(u)
             for [s, cost] in self.graph.getNeighbors(u):
                 self.updateVertex(s)
+        
+        return self.reconstructPath()
                         
             # if (self.U.firstElement() is not None)
             #     break
@@ -222,7 +224,7 @@ def DStarGlobal(graph, startVert, goalVert, percWrong = 20):
     
 
 
-def DStarLocal(graph, startVert, goalVert, percWrong = 20):
+def DStarLocal(graph, startVert, goalVert, percWrong = 50):
     """This algorithm search a graph using D* Lite for
     a path from some start to some goal. It simulates incorrect
     information about the world by modifying percWrong percent
