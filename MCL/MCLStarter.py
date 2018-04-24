@@ -10,6 +10,7 @@ Units throughout are in centimeters.
 """
 
 import random
+import numpy as np
 
 
 class MonteCarloLocalizer:
@@ -39,6 +40,8 @@ class MonteCarloLocalizer:
         with a uniform distribution across the range from minVal to maxVal."""
         pass
         # Define this (note random.uniform is helpful here!)
+
+        self.samples.append(np.random.uniform(self.minValue, self.maxValue, self.numParticles))
 
 
     def mclCycle(self, moveData, senseData):
