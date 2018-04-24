@@ -5,12 +5,13 @@
 graph that is a topological representation of the robot's world.  May need
 to be combined with a more detailed map for localization purposes"""
 
+
+import LoadGraphs
+import GridGraph
+import GraphSearch
+import DStarLite
 import time
 
-import GraphSearch
-import GridGraph
-import LoadGraphs
-import DStarLite
 
 
 def routeFinder():
@@ -29,9 +30,7 @@ def routeFinder():
         currMap = GridGraph.GridGraph(fileName)
         if not currMap.isOkay():
             print("Grid not build correctly!")
-            
-        
-        
+
     print("Which algorithm should we use: DFS, BFS, UCS, Dijkstra's, A*, or D*Lite?")
     print("Enter: d for DFS")
     print("       b for BFS")
@@ -86,7 +85,10 @@ def findRoutes(currMap, whichAlg):
         searchAlg = getSearchAlg(whichAlg)
 
         # Run algorithm to find the route
-        if whichAlg == 'd* a' or 'd*' not in whichAlg:
+        if whichAlg == 'd* b' or whichAlg == 'd* c':
+            searchAlg(currMap, startNode, goalNode)
+        else:
+
             timeAndRun(searchAlg, currMap, startNode, goalNode)
 
 
@@ -136,6 +138,7 @@ def getUserChoice(prompt, validOpts):
             return val
         print("Invalid input, try again.")
         
+    
 
 
 routeFinder()
