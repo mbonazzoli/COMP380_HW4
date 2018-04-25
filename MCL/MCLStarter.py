@@ -10,8 +10,6 @@ Units throughout are in centimeters.
 """
 
 import random
-import numpy as np
-
 
 class MonteCarloLocalizer:
     """Implementation of the Monte Carlo Localization algorithm for a simple, one-dimensional movement."""
@@ -38,11 +36,11 @@ class MonteCarloLocalizer:
     def initSamples(self):
         """Creates self.numParticles samples, each of which are generated randomly
         with a uniform distribution across the range from minVal to maxVal."""
-        pass
         # Define this (note random.uniform is helpful here!)
+        for i in range(self.numParticles):
+            self.samples.append(random.uniform(self.minValue, self.maxValue))
 
-        self.samples.append(np.random.uniform(self.minValue, self.maxValue, self.numParticles))
-
+        print(self.samples)
 
     def mclCycle(self, moveData, senseData):
         """Main MCL cycle. This performs one "cycle" given movement data and sensor data,
@@ -60,6 +58,17 @@ class MonteCarloLocalizer:
         # 7. Use the weights to resample from the new sample list (see the method I've provided)
         # 8. Store the new samples into self.samples, and the new weights to a local variable, newSampleWeights
 
+        newSamples = []
+        newWeights = []
+
+        for p in self.samples:
+            newPart = self.motionUpdate(p, moveData)
+            newWeight = self.perceptionUpdate(newPart, senseData)
+            newSamples.append(newPart)
+            newWeights.append(newWeight)
+
+        self.samples, newSampleWeights = self.resample(newSamples, self.normalize(newWeights))
+
         self.printMCLStatus()
         CoM =  self.findCenterOfMass(newSampleWeights)
         return CoM
@@ -70,8 +79,19 @@ class MonteCarloLocalizer:
         this updates the old position accordingly, adding a random amount of noise based on a gaussian
         distribution. The updated value is returned
         """
-        pass
-        # You define this one
+        centerGauss = 0
+        sigma = 1
+
+        # updating Y pos using the move info and adding gaussian noise
+        updatedY = newY + deltaY + random.gauss(centerGauss, sigma)
+
+        # checking to make sure new Y is within bounds
+        if(updatedY > self.maxValue):
+            updatedY = self.maxValue
+        elif updatedY < self.minValue:
+            updatedY = self.minValue
+
+        return updatedY
 
     def perceptionUpdate(self, newParticle, sensorData):
         """This takes in a new particle/location, and the sensor data, which is one of "wall",
