@@ -34,7 +34,7 @@ def routeFinder():
     print("Which algorithm should we use: DFS, BFS, UCS, Dijkstra's, A*, or D*Lite?")
     print("Enter: d for DFS")
     print("       b for BFS")
-    print("       u for UCS")
+    print("       u for UCS")-
     print("       j for Dijkstra's")
     print("       a for A*")
     print("       l for D*Lite")
@@ -47,6 +47,7 @@ def routeFinder():
     if algChoice in {'l', 'lite', 'd*', 'dstar'}:
         variant = chooseDStarVariant()
         algChoice = 'd* ' + variant
+    print("Number of nodes in graph : " + str(currMap.getSize()))
     findRoutes(currMap, algChoice)
 
 

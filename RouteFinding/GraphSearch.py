@@ -141,6 +141,7 @@ def reconstructPath(startVert, goalVert, preds):
     while p != None:
         path.insert(0, p)
         p = preds[p]
+    print("Number of nodes final path contains : " + str(len(path)))
     return path
 
 #-----------------------------------------------------------------
@@ -149,18 +150,26 @@ def UCSRoute(graph, startVert, goalVert):
     looking for a path from some start vertex to some goal vertex using
     lowest cost. It uses a PriorityQueue to store the indices of
     vertices that it still needs to examine."""
-
+    maxQueueSize = 0
+    nodesVisited = 0
     if startVert == goalVert:
         return []
+    
     q = PriorityQueue()
     q.insert(0, startVert)
     visited = {startVert}
     pred = {startVert: None}
     totalCost = {startVert: 0}
     while not q.isEmpty():
+        if q.getSize() > maxQueueSize:
+            maxQueueSize = q.getSize()
+
         nextCost, nextVert = q.firstElement()
+        nodesVisited += 1
         if nextVert == goalVert:
-            print(nextCost)
+            print("Total Cost is : " + str(nextCost))
+            print("Total Nodes Visited : " + str(nodesVisited))
+            print("Max queue size: " + str(maxQueueSize))
             return reconstructPath(startVert, goalVert, pred)
         q.delete()
         neighbors = graph.getNeighbors(nextVert)
@@ -185,6 +194,8 @@ def AStarRoute(graph, startVert, goalVert):
     looking for a path from some start vertex to some goal vertex using
     lowest cost. It uses a PriorityQueue to store the indices of
     vertices that it still needs to examine."""
+    maxQueueSize = 0
+    nodesVisited = 0
 
     if startVert == goalVert:
         return []
@@ -194,11 +205,17 @@ def AStarRoute(graph, startVert, goalVert):
     pred = {startVert: None}
     totalCost = {startVert: 0}
     while not q.isEmpty():
+        if q.getSize() > maxQueueSize:
+            maxQueueSize = q.getSize()
+
         nextCost, nextVert = q.firstElement()
+        nodesVisited += 1
 
         nextCost = nextCost - graph.heuristicDist(nextVert,goalVert)
         if nextVert == goalVert:
-            print(nextCost)
+            print("Total Cost is : " + str(nextCost))
+            print("Total Nodes Visited : " + str(nodesVisited))
+            print("Max queue size: " + str(maxQueueSize))
             return reconstructPath(startVert, goalVert, pred)
         q.delete()
         neighbors = graph.getNeighbors(nextVert)
