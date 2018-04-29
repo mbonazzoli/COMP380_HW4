@@ -11,6 +11,7 @@ Units throughout are in centimeters.
 
 import random
 
+
 class MonteCarloLocalizer:
     """Implementation of the Monte Carlo Localization algorithm for a simple, one-dimensional movement."""
 
@@ -23,7 +24,7 @@ class MonteCarloLocalizer:
         self.numParticles = numParticles
         self.minValue = minValue
         self.maxValue = maxValue
-        self.countCycles = 0      # This should be updated in mclCycle to count how many cycles have run
+        self.countCycles = 0  # This should be updated in mclCycle to count how many cycles have run
         self.displayBins = 40
 
         # set up initial samples, and then display the text version of the map and histogram
@@ -31,7 +32,6 @@ class MonteCarloLocalizer:
         self.weights = []
         self.initSamples()
         self.printMCLStatus()
-
 
     def initSamples(self):
         """Creates self.numParticles samples, each of which are generated randomly
@@ -70,9 +70,8 @@ class MonteCarloLocalizer:
         self.samples, newSampleWeights = self.resample(newSamples, self.normalize(newWeights))
 
         self.printMCLStatus()
-        CoM =  self.findCenterOfMass(newSampleWeights)
+        CoM = self.findCenterOfMass(newSampleWeights)
         return CoM
-
 
     def motionUpdate(self, newY, deltaY):
         """Given particle's y value, and move information, which is the reported change in y,
@@ -86,7 +85,7 @@ class MonteCarloLocalizer:
         updatedY = newY + deltaY + random.gauss(centerGauss, sigma)
 
         # checking to make sure new Y is within bounds
-        if(updatedY > self.maxValue):
+        if (updatedY > self.maxValue):
             updatedY = self.maxValue
         elif updatedY < self.minValue:
             updatedY = self.minValue
@@ -210,7 +209,6 @@ class MonteCarloLocalizer:
         print(mapStr)
 
 
-
 def MCLDemo():
     """This runs a simple simulation where the robot starts at 1cm and moves about 2 cm each time until it gets
     to the far end"""
@@ -225,6 +223,7 @@ def MCLDemo():
     actualLoc = 1.0
     expectedLoc = 1.0
     twoNumsStr = "{0:7.3f}  {1:7.3f}"
+
     print("------------ Initial location, expected and actual:", twoNumsStr.format(expectedLoc, actualLoc))
     while expectedLoc < 180:
         distMoved = random.gauss(2.0, 0.25)
@@ -247,7 +246,6 @@ def MCLDemo():
             monte.printPoint(result, 'C')
             print("MCL Result:", result)
 
+
 if __name__ == "__main__":
     MCLDemo()
-
-
