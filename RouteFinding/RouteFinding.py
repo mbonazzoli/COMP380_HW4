@@ -121,8 +121,8 @@ def timeAndRun(searchAlg, graph, start, goal):
     t1 = time.time()
     route = searchAlg(graph, start, goal)
     t2 = time.time()
-    print("Route found is:")
-    print(route)
+    # print("Route found is:")
+    # print(route)
     print("Time elapsed:", t2 - t1)
     # if graph.__class__.__name__ == "GridGraph":
     #     graph.printWithRoute(route)
