@@ -124,8 +124,8 @@ def timeAndRun(searchAlg, graph, start, goal):
     print("Route found is:")
     print(route)
     print("Time elapsed:", t2 - t1)
-    # if graph.__class__.__name__ == "GridGraph":
-    #     graph.printWithRoute(route)
+    if graph.__class__.__name__ == "GridGraph":
+        graph.printWithRoute(route)
 
 
 def getUserChoice(prompt, validOpts):
