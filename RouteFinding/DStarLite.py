@@ -200,7 +200,7 @@ def DStarGlobal(graph, startVert, goalVert, percWrong = 20):
     # t2 = time.time()
     # print ("First route found is:")
     print (route1)
-    print ("Time elapsed:", t2-t1)
+    # print ("Time elapsed:", t2-t1)
     graph.printWithRoute(route1)
 
     print("--------")
