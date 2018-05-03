@@ -110,28 +110,28 @@ class SturdyRobot(object):
 
     def readReflect(self):
     	"""Returns reflected light values 0 (black) - 100 (white)""" 
-    	return self.robot.colorSensor.reflected_light_intensity
+    	return self.colorSensor.reflected_light_intensity
 
     def readAmbient(self):
         """Returns percentage of ambient light 0 (dark) - 100 (light)"""
-        return self.robot.colorSensor.ambient_light_intensity
+        return self.colorSensor.ambient_light_intensity
 
     def readColor(self):
     	"""Returns color value 0-7"""
-    	return self.robot.colorSensor.color
+    	return self.colorSensor.color
 
     def readRGB(self):
     	"""Returns the RGB values (0-1020) read from the colorSensor for more accurate color reading"""
-    	return(self.robot.colorSensor.red, self.robot.colorSensor.green, self.robot.colorSensor.blue)
+    	return(self.colorSensor.red, self.colorSensor.green, self.colorSensor.blue)
 
     def readDistance(self):
     	"""Returns distance in centimeters from the ultrasonic sensor reading"""
-    	return self.robot.ultraSensor.distance_centimeters
+    	return self.ultraSensor.distance_centimeters
 
     def readHeading(self):
     	"""Returns the current heading of the robot from the initial gyro zero value (when it was first plugged in) 0-360"""
    
-    	return self.robot.gyroSensor.angle % 360
+    	return self.gyroSensor.angle % 360
 
     # ---------------------------------------------------------
     # Methods for motor control

@@ -116,12 +116,18 @@ class MonteCarloLocalizer:
     def resample(self, samplePool, weights):
         """Takes in pool of new samples and corresponding weights, and it resamples from them.
         It makes a corresponding weight associated with each chose new particle, for later use."""
-        newSamples = random.choices(samplePool, weights, k=self.numParticles)
-        newW = []
-        for s in newSamples:
-            indx = samplePool.index(s)
-            newW.append(weights[indx])
-        return newSamples, newW
+        newSamples = []
+        newWeights = []
+        for i in range(len(samplePool)):
+            randVal = random.random()
+            sampIndex = 0
+            total = weights[0]
+            while randVal >= total:
+                sampIndex += 1
+                total += weights[sampIndex]
+            newSamples.append(samplePool[sampIndex])
+            newWeights.append(weights[sampIndex])
+        return newSamples, newWeights
 
     def normalize(self, weights):
         """Takes a bunch of newly-computed weights and normalizes them so they add up to 1.0"""
