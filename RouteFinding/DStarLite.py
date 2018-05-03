@@ -199,7 +199,7 @@ def DStarGlobal(graph, startVert, goalVert, percWrong = 20):
     route1 = dStarRunner.computeShortestPath()
     # t2 = time.time()
     # print ("First route found is:")
-    print (route1)
+    # print (route1)
     # print ("Time elapsed:", t2-t1)
     # graph.printWithRoute(route1)
 
@@ -215,7 +215,7 @@ def DStarGlobal(graph, startVert, goalVert, percWrong = 20):
     if route1 == route2:
         print("SAME ROUTE")
     print ("Fixed route found is:")
-    print (route2)
+    # print (route2)
     print ("Time elapsed:", t2-t1)
     # graph.printWithRoute(route2)
     return route2
@@ -243,7 +243,7 @@ def DStarLocal(graph, startVert, goalVert, percWrong = 50):
     route1 = dStarRunner.computeShortestPath()
     # t2 = time.time()
     print ("First route found is:")
-    print (route1)
+    # print (route1)
     # print ("Time elapsed:", t2-t1)
     # incorrectGraph.printWithRoute(route1)
     mapWid = graph.getWidth()
@@ -259,7 +259,7 @@ def DStarLocal(graph, startVert, goalVert, percWrong = 50):
             nextRoute = dStarRunner.computeShortestPath()
             t2 = time.time()
             print ("Fixed route found is:")
-            print (nextRoute)
+            # print (nextRoute)
             # print ("Time elapsed:", t2-t1)
             # graph.printWithRoute(nextRoute)
     t2 = time.time()
