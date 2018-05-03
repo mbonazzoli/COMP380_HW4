@@ -252,8 +252,8 @@ def DStarLocal(graph, startVert, goalVert, percWrong = 50):
         (r, c) = graph.getData(cell)
         badNeighbors = findIncorrectNeighbors(correctInfo, r, c, mapWid, mapHgt)
         if len(badNeighbors) > 0:
-            print("Incorrect neighbors:", badNeighbors)
-            print ("Correcting information...")
+            # print("Incorrect neighbors:", badNeighbors)
+            # print ("Correcting information...")
             dStarRunner.correctInformation(badNeighbors)
             # t1 = time.time()
             nextRoute = dStarRunner.computeShortestPath()
