@@ -197,8 +197,8 @@ def DStarGlobal(graph, startVert, goalVert, percWrong = 20):
     dStarRunner = DStarAlgorithm(incorrectGraph, startVert, goalVert)
     t1 = time.time()
     route1 = dStarRunner.computeShortestPath()
-    t2 = time.time()
-    print ("First route found is:")
+    # t2 = time.time()
+    # print ("First route found is:")
     print (route1)
     print ("Time elapsed:", t2-t1)
     graph.printWithRoute(route1)
@@ -209,7 +209,7 @@ def DStarGlobal(graph, startVert, goalVert, percWrong = 20):
     print ("Correcting information...")
     dStarRunner.correctInformation(correctInfo)
 
-    t1 = time.time()
+    # t1 = time.time()
     route2 = dStarRunner.computeShortestPath()
     t2 = time.time()
     if route1 == route2:
@@ -241,10 +241,10 @@ def DStarLocal(graph, startVert, goalVert, percWrong = 50):
     # RouteFinding.testAndRun(dStarRunner)
     t1 = time.time()
     route1 = dStarRunner.computeShortestPath()
-    t2 = time.time()
+    # t2 = time.time()
     print ("First route found is:")
     print (route1)
-    print ("Time elapsed:", t2-t1)
+    # print ("Time elapsed:", t2-t1)
     incorrectGraph.printWithRoute(route1)
     mapWid = graph.getWidth()
     mapHgt = graph.getHeight()
@@ -255,13 +255,16 @@ def DStarLocal(graph, startVert, goalVert, percWrong = 50):
             print("Incorrect neighbors:", badNeighbors)
             print ("Correcting information...")
             dStarRunner.correctInformation(badNeighbors)
-            t1 = time.time()
+            # t1 = time.time()
             nextRoute = dStarRunner.computeShortestPath()
             t2 = time.time()
             print ("Fixed route found is:")
             print (nextRoute)
-            print ("Time elapsed:", t2-t1)
+            # print ("Time elapsed:", t2-t1)
             graph.printWithRoute(nextRoute)
+    t2 = time.time()
+    print ("Time elapsed:", t2-t1)
+
     return nextRoute
 
 
