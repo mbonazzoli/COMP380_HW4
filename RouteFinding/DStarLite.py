@@ -201,7 +201,7 @@ def DStarGlobal(graph, startVert, goalVert, percWrong = 20):
     # print ("First route found is:")
     print (route1)
     # print ("Time elapsed:", t2-t1)
-    graph.printWithRoute(route1)
+    # graph.printWithRoute(route1)
 
     print("--------")
     print("CORRECT MAP:")
@@ -217,7 +217,7 @@ def DStarGlobal(graph, startVert, goalVert, percWrong = 20):
     print ("Fixed route found is:")
     print (route2)
     print ("Time elapsed:", t2-t1)
-    graph.printWithRoute(route2)
+    # graph.printWithRoute(route2)
     return route2
     
     
