@@ -193,7 +193,7 @@ def DStarGlobal(graph, startVert, goalVert, percWrong = 20):
         return
     correctInfo, incorrectGraph = corruptGraph(graph, percWrong)
     print("CORRUPTED GRAPH:")
-    incorrectGraph.printGrid()
+    # incorrectGraph.printGrid()
     dStarRunner = DStarAlgorithm(incorrectGraph, startVert, goalVert)
     t1 = time.time()
     route1 = dStarRunner.computeShortestPath()
@@ -205,7 +205,7 @@ def DStarGlobal(graph, startVert, goalVert, percWrong = 20):
 
     print("--------")
     print("CORRECT MAP:")
-    graph.printGrid()
+    # graph.printGrid()
     print ("Correcting information...")
     dStarRunner.correctInformation(correctInfo)
 
@@ -245,7 +245,7 @@ def DStarLocal(graph, startVert, goalVert, percWrong = 50):
     print ("First route found is:")
     print (route1)
     # print ("Time elapsed:", t2-t1)
-    incorrectGraph.printWithRoute(route1)
+    # incorrectGraph.printWithRoute(route1)
     mapWid = graph.getWidth()
     mapHgt = graph.getHeight()
     for cell in route1:
@@ -261,7 +261,7 @@ def DStarLocal(graph, startVert, goalVert, percWrong = 50):
             print ("Fixed route found is:")
             print (nextRoute)
             # print ("Time elapsed:", t2-t1)
-            graph.printWithRoute(nextRoute)
+            # graph.printWithRoute(nextRoute)
     t2 = time.time()
     print ("Time elapsed:", t2-t1)
 
